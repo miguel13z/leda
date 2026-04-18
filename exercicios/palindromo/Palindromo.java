@@ -1,3 +1,4 @@
+package palindromo;
 import java.util.Scanner;
 
 class Palindromo {
