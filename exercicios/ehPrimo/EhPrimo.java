@@ -12,7 +12,7 @@ public class EhPrimo {
 		System.out.println(ehPrimo(numero));
 	}
 
-	private static boolean ehPrimo(int numero) {
+	public static boolean ehPrimo(int numero) {
 		if (numero <= 1) {
 			return false;
 		}
