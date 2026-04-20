@@ -16,6 +16,8 @@ Seja $n$ a variável `quantidadeElementos`, que dita o limite do laço.
 | `out += array[i % array.length] + " ";`| $c_5$ | $n$ |
 | `return out;` | $c_6$ | $1$ |
 
+**Obs:** A concatenação de strings usando `+=` não é considerada uma primitiva, porém, para fins de lógica, usaremos essa notação. O uso de StringBuilder seria mais eficiente com a operação `.append()` para um custo constante.
+
 ### 2. Montando a Equação $f(n)$
 Somando os custos e agrupando os termos:
 $$f(n) = c_1 \cdot 1 + c_2 \cdot 1 + c_3(n + 1) + c_4 \cdot n + c_5 \cdot n + c_6 \cdot 1$$
