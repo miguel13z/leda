@@ -21,6 +21,7 @@ public class VetorCircular {
 		}
 		
 		return array;
+		
 	}
 
 	public static String vetorCircular(int[] array, int qntElementos) {
