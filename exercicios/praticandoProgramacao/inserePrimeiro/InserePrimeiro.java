@@ -1,19 +1,21 @@
-package insereUltimo;
-import java.util.Arrays;
+package inserePrimeiro;
 import java.util.Scanner;
+import java.util.Arrays;
 
-public class insereUltimo{
+// A função inserePrimeiro é O(n).
+public class InserePrimeiro{
+
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         String[] linha = sc.nextLine().split(" ");
         sc.close();
-        
+
         int[] numeros = transformaInt(linha);
-        for(int i = numeros.length - 1; i >= 1; i--){
-            if (numeros[i] < numeros[i - 1]){
+        for (int i = 0; i < numeros.length - 1; i++){
+            if (numeros[i] > numeros[i + 1]){
                 int temp = numeros[i];
-                numeros[i] = numeros[i - 1];
-                numeros[i - 1] = temp;
+                numeros[i] = numeros[i + 1];
+                numeros[i + 1] = temp;
             }
             else {
                 break;
