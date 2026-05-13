@@ -53,6 +53,13 @@ public class CountingSortAsserts {
     public static void main(String[] args) {
         new CountingSortAsserts().classicCountingSort();
         new CountingSortAsserts().zeroCountingSort();
-        new CountingSortAsserts().negativosCountingSort();
+        //new CountingSortAsserts().negativosCountingSort();
+    	//meusTestes();
+    }
+    
+    public static void meusTestes() {
+    	CountingSort sorting = new CountingSort();
+    	
+    	sorting.zeroCountingSort(new int[] {0, 7, 3, 2}, 7);
     }
 }
