@@ -97,36 +97,36 @@ public class MergeSort implements SortingStrategy {
     */
     public void sort(int[] v, int ini, int fim) {
     	if (ini >= fim) {
-    		return; 
+    		return;
     	}
     	
     	int meio = (ini + fim) / 2;
-    	
     	sort(v, ini, meio);
     	sort(v, meio + 1, fim);
     	
     	merge(v, ini, meio, fim);
     }
-    
-    public void merge(int[] v, int ini, int meio, int fim) {
-    	int[] aux = new int[v.length];
-    	for (int c = ini; c <= fim; c++) {
-    		aux[c] = v[c];
-    	}
-    	
-    	int i = ini;
-    	int j = meio + 1;
-    	int k = ini;
-    	while (i <= meio && j <= fim) {
-    		if (aux[i] <= aux[j]) {
-    			v[k++] = aux[i++];
-    		} else {
-    			v[k++] = aux[j++];
-    		}
-    	}
-    	
-    	while (i <= meio) {
-    		v[k++] = aux[i++];
-    	}
-    }
+
+	public void merge(int[] v, int ini, int meio, int fim) {
+		int[] aux = new int[v.length];
+		for (int c = ini; c <= fim; c++) {
+			aux[c] = v[c];
+		}
+		
+		int i = ini;
+		int j = meio + 1;
+		int k = ini;
+		while (i <= meio && j <= fim) {
+			if (aux[i] <= aux[j]) {
+				v[k++] = aux[i++];
+			}
+			else {
+				v[k++] = aux[j++];
+			}
+		}
+		
+		while (i <= meio) {
+			v[k++] = aux[i++];
+		}
+	}
 }

@@ -96,6 +96,26 @@ public class MergeSortAsserts {
 		 
 		 v = new int[] {10, 20, 50, 30, 40, 10};
 		 sorting.sort(v, 0, v.length - 1);
-		 System.out.println(Arrays.toString(v));
+		 assert Arrays.equals(v, new int[] {10, 10, 20, 30, 40, 50});
+		 
+		 v = new int[] {10, 9, 1, 2, 3, 4, 5, 8, 7, 6, 0};
+		 sorting.sort(v, 0, v.length - 1);
+		 assert Arrays.equals(v, new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+		 
+		 v = new int[] {100, 10, 9, 8, 7, 6, 1, 2, 50};
+		 sorting.sort(v, 0, v.length - 1);
+		 assert Arrays.equals(v, new int[] {1, 2, 6, 7, 8, 9, 10, 50, 100});
+		 
+		 v = new int[] {0, -3, -20, -10};
+		 sorting.sort(v, 0, v.length - 1);
+		 assert Arrays.equals(v, new int[] {-20, -10, -3, 0});
+		 
+		 v = new int[] {1, 81, 60, 40, 30, 20, 10, 4, 100};
+		 sorting.sort(v, 0, v.length - 1);
+		 assert Arrays.equals(v, new int[] {1, 4, 10, 20, 30, 40, 60, 81, 100});
+		 
+		 v = new int[] {10, 1000, 20, 3, 0};
+		 sorting.sort(v, 0, v.length - 1);
+		 assert Arrays.equals(v, new int[] {0, 3, 10, 20, 1000});
 	}
 }

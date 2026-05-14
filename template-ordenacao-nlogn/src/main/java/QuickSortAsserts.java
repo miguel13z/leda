@@ -35,6 +35,7 @@ public class QuickSortAsserts {
 
         v = new int[]{8, 1, 78, 45, 3, 2, 103};
         sorting.sort(v, 0, v.length - 1);
+        System.out.println(Arrays.toString(v));
         assert Arrays.equals(v, new int[]{1, 2, 3, 8, 45, 78, 103});
 
         v = new int[]{2};
