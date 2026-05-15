@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class CountingSort {
    
     /**
@@ -35,7 +33,7 @@ public class CountingSort {
     	}
     	
     	for (int i = 1; i < c.length; i++) {
-    		c[i] += c[i -1];
+    		c[i] += c[i - 1];
     	}
     	
     	int[] b = new int[v.length];
@@ -52,8 +50,35 @@ public class CountingSort {
     * vai precisar identificar o menor elemento do array. FAça isso no início do método.
     */
     public int[] negativosCountingSort(int[] v, int k) {
-        // TODO implementar
-        return null;
+    	int menorNegativo = procuraMenorNegativo(v);
+    	
+    	int[] c = new int[k + 1 - menorNegativo];
+    	for (int i = 0; i < v.length; i++) {
+    		c[v[i] - menorNegativo] += 1;
+    	}
+    	
+    	for (int i = 1; i < c.length; i++) {
+    		c[i] += c[i - 1];
+    	}
+    	
+    	int[] b = new int[v.length];
+    	for (int i = v.length - 1; i >= 0; i--) {
+    		b[c[v[i] - menorNegativo] - 1] = v[i];
+    		c[v[i] - menorNegativo] -= 1;
+    	}
+    	
+    	return b;
+    }
+    
+    private int procuraMenorNegativo(int[] v) {
+    	int menorNegativo = 0;
+    	for (int i = 0; i < v.length; i++) {
+    		if (v[i] < menorNegativo) {
+    			menorNegativo = v[i];
+    		}
+    	}
+    	
+    	return menorNegativo;
     }
 
 }
