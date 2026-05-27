@@ -23,7 +23,7 @@ public class Fila {
 
     // deve lançar exceção caso a fila esteja vazia.
     public int removeFirst() {
-        // TODO 
+        // TODO
         return 0;
     }
 
@@ -39,21 +39,22 @@ public class Fila {
         return 0;
     }
 
-    // deve retornar uma string representando a fila. 
-    public String toString() {
+    // deve retornar uma string representando a fila.
+    @Override
+	public String toString() {
         return "";
     }
-    
-    // Deve retornar a posição da primeira ocorrência do elemento passado como parâmetro. 
+
+    // Deve retornar a posição da primeira ocorrência do elemento passado como parâmetro.
     public int indexOf(int valor) {
         return -1;
     }
 
-    // Deve retornar a posição da última ocorrência do elemento passado como parâmetro. 
+    // Deve retornar a posição da última ocorrência do elemento passado como parâmetro.
     public int lastIndexOf(int valor) {
         return -1;
     }
-    
+
     public int size() {
         // TODO
         return 0;
