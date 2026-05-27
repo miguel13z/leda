@@ -93,6 +93,10 @@ public class Pilha {
     	
     	return posElemento;
     }
+    
+    public int lastIndexOf(int valor) {
+    	return size() - indexOf(valor);
+    }
 
     public int size() {
         return topo + 1;

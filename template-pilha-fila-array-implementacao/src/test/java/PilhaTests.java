@@ -1,4 +1,4 @@
-public class AssertsPilha {
+public class PilhaTests {
 
     public void testPilhaPush() {
         Pilha pilha = new Pilha(5);
@@ -9,26 +9,26 @@ public class AssertsPilha {
         pilha.push(10);
         assert !pilha.isEmpty();
         assert !pilha.isFull();
-        assert pilha.top() == 10;
+        assert pilha.peek() == 10;
         assert pilha.size() == 1;
 
         pilha.push(20);
         assert !pilha.isEmpty();
         assert !pilha.isFull();
-        assert pilha.top() == 20;
+        assert pilha.peek() == 20;
         assert pilha.size() == 2;
 
         pilha.push(30);
         pilha.push(40);
         assert !pilha.isEmpty();
         assert !pilha.isFull();
-        assert pilha.top() == 40;
+        assert pilha.peek() == 40;
         assert pilha.size() == 4;
 
         pilha.push(50);
         assert !pilha.isEmpty();
         assert pilha.isFull();
-        assert pilha.top() == 50;
+        assert pilha.peek() == 50;
         assert pilha.size() == 5;
 
         boolean lancou = false;
@@ -41,7 +41,7 @@ public class AssertsPilha {
 
         assert !pilha.isEmpty();
         assert pilha.isFull();
-        assert pilha.top() == 50;
+        assert pilha.peek() == 50;
         assert pilha.size() == 5;
     }
 
@@ -61,7 +61,7 @@ public class AssertsPilha {
 
         assert !pilha.isEmpty();
         assert pilha.isFull();
-        assert pilha.top() == 50;
+        assert pilha.peek() == 50;
         assert pilha.size() == 5;
 
         boolean lancou = false;
@@ -73,7 +73,7 @@ public class AssertsPilha {
         assert lancou;
 
         assert pilha.pop() == 50;
-        assert pilha.top() == 40;
+        assert pilha.peek() == 40;
         assert pilha.size() == 4;
 
         assert pilha.pop() == 40;
@@ -95,7 +95,7 @@ public class AssertsPilha {
 
         lancou = false;
         try {
-            pilha.top();
+            pilha.peek();
         } catch (Exception e) {
             lancou = true;
         }
@@ -152,7 +152,7 @@ public class AssertsPilha {
     }
 
     public static void main(String[] args) {
-        AssertsPilha testes = new AssertsPilha();
+        PilhaTests testes = new PilhaTests();
         testes.testPilhaPush();
         testes.testPilhaPop();
         testes.testPilhaToString();
