@@ -51,17 +51,18 @@ public class Pilha {
     	
     	while(!isEmpty()) {
     		int elemento = pop();
-    		if (topo == -1) {
+    		pilhaAuxiliar.push(elemento);
+    	}
+
+    	while (!pilhaAuxiliar.isEmpty()) {
+    		int elemento = pilhaAuxiliar.pop();
+    		if (pilhaAuxiliar.size() == 0) {
     			out += elemento;
     		}
     		else {
     			out += elemento + ", ";
     		}
-    		pilhaAuxiliar.push(elemento);
-    	}
-
-    	while (!pilhaAuxiliar.isEmpty()) {
-    		push(pilhaAuxiliar.pop());
+    		push(elemento);
     	}
 
         return out;
