@@ -2,13 +2,19 @@
 public class MeuTeste {
 
 	public static void main(String[] args) {
-		Pilha pilha = new Pilha(5);
-		System.out.println(pilha.indexOf(10));	 //== -1
-        pilha.push(10);
-        System.out.println(pilha.indexOf(10));  //== 0;
-        pilha.push(20);
-        System.out.println(pilha.indexOf(20));  ///== 1;
+		Fila fila = new Fila(5);
+        fila.addLast(10);
         
+        fila.removeFirst();
+
+        fila.addLast(10);
+        fila.addLast(20);
+        fila.addLast(30);
+        fila.addLast(40);
+        fila.addLast(50);
+
+        
+        System.out.println(fila.getFirst());  //== 10;
 	}
 
 }

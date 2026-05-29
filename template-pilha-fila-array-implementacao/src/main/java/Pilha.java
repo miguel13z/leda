@@ -76,7 +76,7 @@ public class Pilha {
     public int indexOf(int valor) {
     	Pilha pilhaAuxiliar = new Pilha(pilha.length);
     	int posElemento = -1;
-    	int i = 0;
+    	int i = size() - 1;
     	while(!isEmpty()) {
     		int elemento = pop();
     		if (elemento == valor) {
@@ -85,7 +85,7 @@ public class Pilha {
     			break;
     		}
     		pilhaAuxiliar.push(elemento);
-    		i++;
+    		i--;
     	}
     	
     	while(!pilhaAuxiliar.isEmpty()) {
@@ -95,9 +95,6 @@ public class Pilha {
     	return posElemento;
     }
     
-    public int lastIndexOf(int valor) {
-    	return size() - indexOf(valor);
-    }
 
     public int size() {
         return topo + 1;

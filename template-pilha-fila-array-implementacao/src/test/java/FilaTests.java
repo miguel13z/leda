@@ -1,4 +1,4 @@
-public class AssertsFila {
+public class FilaTests {
 
     public void testFilaAddLast() {
         Fila fila = new Fila(5);
@@ -159,7 +159,7 @@ public class AssertsFila {
     }
 
     public static void main(String[] args) {
-        AssertsFila testes = new AssertsFila();
+        FilaTests testes = new FilaTests();
         testes.testFilaAddLast();
         testes.testFilaRemoveFirst();
         testes.testFilaToString();
