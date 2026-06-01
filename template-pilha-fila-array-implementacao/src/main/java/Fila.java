@@ -26,15 +26,11 @@ public class Fila {
     public void addLast(int valor) {
         if (isFull()) throw new RuntimeException("A fila já está cheia");
         if (isEmpty()) head++;
-        
-        size++;
-        
+      
+        size += 1;
         
         fila[++tail % fila.length] = valor;
-        
-        System.out.println(head);
-        System.out.println(tail);
-    }
+        }
 
     // deve lançar exceção caso a fila esteja vazia.
     public int removeFirst() {
@@ -42,10 +38,12 @@ public class Fila {
         size--;
         
         int elemento = fila[head];
-        head = (head + 1) % fila.length;
-        
-        System.out.println(head);
-        System.out.println(tail);
+        if (head == tail) {
+        	head = -1;
+        	tail = -1;
+        } else {
+        	head = (head + 1) % fila.length;
+        }
         
         return elemento;
     }
