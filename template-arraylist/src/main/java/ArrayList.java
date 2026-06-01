@@ -1,69 +1,103 @@
-public class ArrayList {
+import java.util.Arrays;
 
+public class ArrayList {
+	private int[] arrayList;
+	private int tamanho;
    
     public ArrayList(int capacidadeInicial) {
-        // TODO
+        arrayList = new int[capacidadeInicial];
+        tamanho = 0;
     }
 
     public boolean isEmpty() {
-        // TODO
-        return false;
+        return tamanho == 0;
+    }
+    
+    private void shiftDireita(int posLiberada) {
+    	for (int i = tamanho - 1; i >= posLiberada; i--) {
+    		arrayList[i + 1] = arrayList[i];
+    	}
     }
 
     public void addFirst(int valor) {
-        // TODO
+    	shiftDireita(0);
+    	arrayList[0] = valor;
+    	tamanho++;
     }
 
     public void addLast(int valor) {
-        // TODO
+        arrayList[tamanho] = valor;
+        tamanho++;
     }
 
-    // adiciona um valor no índice passado como parâmetro
+
+	// adiciona um valor no índice passado como parâmetro
     public void add(int index, int valor) {
-        //TODO
+        if (index < 0 || index >= tamanho) throw new IndexOutOfBoundsException("Índice fora do intervalo.");
+        shiftDireita(index);
+        arrayList[index] = valor;
+        tamanho++;
     }
 
     // você vai precisar desse método quando tentar adicionar e a fila já estiver cheia
     private void resize(int novaCapacidade) {
-       // TODO 
+    	int[] arrayMaior = new int[novaCapacidade];
+    	for (int i = 0; i < tamanho; i++) {
+    		arrayMaior[i] = arrayList[i];
+    	}
+    	arrayList = arrayMaior;
     }
 
     public void assegureCapacidade(int capacidadePretendida) {
-       // TODO
+       if (capacidadePretendida > arrayList.length) {
+    	   resize(capacidadePretendida);
+       }
     }
 
     public int getFirst() {
-        // TODO
-        return -1;
+    	if (isEmpty()) throw new RuntimeException("ArrayList está vazio.");
+        return arrayList[0];
     }
 
     public int getLast() {
-        //TODO
-        return -1;
+    	if (isEmpty()) throw new RuntimeException("ArrayList está vazio.");
+        return arrayList[tamanho - 1];
     }
 
     // retorna o elemento no índice passado como parâmetro
     // deve lançar IndexOutOfBoundsException se o índice não for válido.
     public int get(int index) {
-        // TODO
-        return -1;
+    	if (index < 0 || index >= tamanho) throw new IndexOutOfBoundsException("Índice fora do intervalo.");
+        return arrayList[index];
     }
 
     // deve lançar exceção caso a fila esteja vazia.
     public int removeFirst() {
-        // TODO 
-        return 0;
+    	if (isEmpty()) throw new RuntimeException("ArrayList está vazio.");
+    	int elemento = arrayList[0];
+    	shiftEsquerda(0);
+    	tamanho--;
+        return elemento;
     }
 
-    // deve lançar exceção caso a fila esteja vazia.
+    private void shiftEsquerda(int pos) {
+		for (int i = pos + 1; i < tamanho; i++) {
+			arrayList[i - 1] = arrayList[i];
+		}
+	}
+
+	// deve lançar exceção caso a fila esteja vazia.
     public void removeLast() {
-        //TODO
+    	if (isEmpty()) throw new RuntimeException("ArrayList está vazio.");
+    	tamanho--;
     }
 
     // remove o valor no índice passado como parâmetro. 
     // lançar exceção se o índice não for válido.
     public void remove(int index) {
-        // TODO
+    	if (index < 0 || index >= tamanho) throw new IndexOutOfBoundsException("Índice fora do intervalo.");
+    	shiftEsquerda(index);
+    	tamanho--;
     }
 
     // remove a primeira ocorrência do elemento cujo valor foi passado como parâmetro.
@@ -85,11 +119,11 @@ public class ArrayList {
     
     // deve retornar uma string representando a lista. 
     public String toString() {
-        return "";
+    	
+        return Arrays.toString(arrayList);
     }
     
     public int size() {
-        // TODO
-        return 0;
+        return tamanho;
     }
 }
