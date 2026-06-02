@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class ArrayListAsserts {
 
     public static void main(String[] args) {

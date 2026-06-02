@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class ArrayList {
 	private int[] arrayList;
 	private int tamanho;
@@ -20,12 +18,20 @@ public class ArrayList {
     }
 
     public void addFirst(int valor) {
+    	if (tamanho + 1 > arrayList.length) {
+    		resize(arrayList.length * 2);
+    	}
+    	
     	shiftDireita(0);
     	arrayList[0] = valor;
     	tamanho++;
     }
 
     public void addLast(int valor) {
+    	if (tamanho + 1 > arrayList.length) {
+    		resize(arrayList.length * 2);
+    	}
+    	
         arrayList[tamanho] = valor;
         tamanho++;
     }
@@ -33,7 +39,14 @@ public class ArrayList {
 
 	// adiciona um valor no índice passado como parâmetro
     public void add(int index, int valor) {
-        if (index < 0 || index >= tamanho) throw new IndexOutOfBoundsException("Índice fora do intervalo.");
+        if (index < 0 || index > tamanho) {
+            throw new IndexOutOfBoundsException("Índice fora do intervalo.");
+        }
+        
+        if (tamanho == arrayList.length) {
+            resize(arrayList.length * 2);
+        }
+        
         shiftDireita(index);
         arrayList[index] = valor;
         tamanho++;
@@ -103,24 +116,48 @@ public class ArrayList {
     // remove a primeira ocorrência do elemento cujo valor foi passado como parâmetro.
     // se não encontrar, não faça nada.
     public void removeByValue(int value) {
-        // TODO
+        for (int i = 0; i < tamanho; i++) {
+        	if (arrayList[i] == value) {
+        		remove(i);
+        		break;
+        	}
+        }
     }
 
     // retorna o índice da primeira ocorrência do valor passado como parâmetro.
     public int indexOf(int value) {
-        // TODO
+        for (int i = 0; i < tamanho; i++) {
+        	if (arrayList[i] == value) {
+        		return i;
+        	}
+        }
         return -1;
     }
    
     // Deve retornar a posição da última ocorrência do elemento passado como parâmetro. 
     public int lastIndexOf(int valor) {
-        return -1;
+    	int index = -1;
+    	for (int i = 0; i < tamanho; i++) {
+        	if (arrayList[i] == valor) {
+        		index = i;
+        	}
+        }
+        return index;
     }
     
     // deve retornar uma string representando a lista. 
     public String toString() {
+    	String out = "";
+    	for (int i = 0; i < tamanho; i++) {
+    		if (i + 1 == tamanho) {
+    			out += arrayList[i];
+    		}
+    		else {
+    			out += arrayList[i] + " ";
+    		}
+    	}
     	
-        return Arrays.toString(arrayList);
+        return out;
     }
     
     public int size() {
