@@ -29,7 +29,8 @@ public class Fila {
       
         size += 1;
         
-        fila[++tail % fila.length] = valor;
+        tail = (tail + 1) % fila.length;
+        fila[tail] = valor;
         }
 
     // deve lançar exceção caso a fila esteja vazia.
@@ -66,24 +67,42 @@ public class Fila {
     @Override
 	public String toString() {
     	String out = "";
-    	for (int i = head; i <= tail; i++) {
-    		if (i + 1 > tail) {
-    			out += fila[i];
-    		}
-    		out += fila[i] + ", ";
-    	}
+    	if (isEmpty()) return out;
     	
+    	for (int i = 0; i < size; i++) {
+            int indexFisico = (head + i) % fila.length;
+            out += fila[indexFisico];
+            
+            if (i < size - 1) {
+                out += ", ";
+            }
+        }
         return out;
     }
 
     // Deve retornar a posição da primeira ocorrência do elemento passado como parâmetro.
     public int indexOf(int valor) {
+    	for (int i = 0; i < size; i++) {
+            int indexFisico = (head + i) % fila.length;
+            if (fila[indexFisico] == valor) {
+            	return i;
+            }
+        }
+    	
         return -1;
     }
 
     // Deve retornar a posição da última ocorrência do elemento passado como parâmetro.
     public int lastIndexOf(int valor) {
-        return -1;
+    	int posIndex = -1;
+    	for (int i = 0; i < size; i++) {
+            int indexFisico = (head + i) % fila.length;
+            if (fila[indexFisico] == valor) {
+            	posIndex = i;
+            }
+        }
+    	
+        return posIndex;
     }
 
     public int size() {
