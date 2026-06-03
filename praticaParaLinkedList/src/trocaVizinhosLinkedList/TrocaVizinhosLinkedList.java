@@ -1,4 +1,4 @@
-package praticaParaLinkedList;
+package trocaVizinhosLinkedList;
 
 import java.util.Scanner;
 
