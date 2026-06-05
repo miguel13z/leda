@@ -435,6 +435,8 @@ public class LinkedListAsserts {
         tests.testLLAddLast();
         tests.testListAddFirst();
         tests.testLinkedListAdd();
+        
+        System.out.println("Todos os testes passaram!");
     }
 
 }
