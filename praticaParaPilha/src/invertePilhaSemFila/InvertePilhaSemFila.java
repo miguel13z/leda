@@ -1,4 +1,4 @@
-package praticaParaPilha;
+package invertePilhaSemFila;
 
 import java.util.Scanner;
 
