@@ -199,6 +199,127 @@ public class LinkedList {
         return index;
     }
     
+    public void insereOrdenado(int v) {
+    	if (tamanho == 0) {
+    		addFirst(v);
+    		return;
+    	}
+    	
+    	Node noDir = head;
+    	for (int i = 0; i < tamanho; i++) {
+    		if (v < noDir.value) {
+    			break;
+    		}
+    		noDir = noDir.next;
+    	}
+    	
+    	if (noDir == null) {
+    		addLast(v);
+    		return;
+    	}
+    	
+    	if (noDir == head) {
+    		addFirst(v);
+    		return;
+    	}
+    	
+    	Node newNode = new Node(v);
+    	noDir.prev.next = newNode;
+    	newNode.prev = noDir.prev;
+    	newNode.next = noDir;
+    	noDir.prev = newNode;
+    	tamanho++;
+    }
+    
+    public void swap(Node n1, Node n2) {
+    	Node a0 = n1.prev;
+    	Node a1 = n1.next;
+    	Node b0 = n2.prev;
+    	Node b1 = n2.next;
+    	
+    	if (a0 != null) {
+    		a0.next = n2;
+    	} else {
+    		head = n2;
+    	}
+    	
+    	if (b0 != null) {
+    		b0.next = n1;
+    	} else {
+    		head = n1;
+    	}
+    	
+    	if (a1 != null) {
+    		a1.prev = n2;
+    	} else {
+    		tail = n2;
+    	}
+    	
+    	if (b1 != null) {
+    		b1.prev = n1;
+    	} else {
+    		tail = n1;
+    	}
+    	
+    	if (a1 == b0 || b1 == a0) {
+    		a1.next = n1;
+    		a1.prev = n2;
+    	}
+    	
+    	n2.prev = a0;
+    	n1.next = b1;
+    	n1.prev = b0;
+    	n2.next = a1;
+    	
+    	
+    	
+    	
+    	/**
+    	 * Código pra trocar sem ser nas extremidades
+    	 * 
+    	 * if (a0 != null && b0 != null && a1 != null & b1 != null) {
+    		a0.next = n2; ok
+    		n2.prev = a0;
+    		n1.next = b1;
+    		n1.prev = b0;
+    		a1.prev = n2; ok
+    		b0.next = n1; ok
+    		n2.next = a1;
+    		b1.prev = n1; ok
+    		return;
+    	}
+    	 */
+    }
+    
+
+	//Obs: perguntar se pode fazer referenciando os nós da esquerda e direita
+    public void moveToHead(int index) {
+    	if (index < 0 || index >= tamanho) throw new IndexOutOfBoundsException("Index inválido.");
+    	if (index == 0) return;
+    	
+    	Node noCabeca = head;
+    	for (int i = 0; i < index; i++) {
+    		noCabeca = noCabeca.next;
+    	}
+    	
+    	if (noCabeca.next == null) {
+    		tail = noCabeca.prev;
+    		noCabeca.prev.next = null;
+    		noCabeca.next = head;
+    		noCabeca.prev = null;
+    		head.prev = noCabeca;
+    		head = noCabeca;
+    		return;
+    	}
+    	
+    	noCabeca.prev.next = noCabeca.next;
+		noCabeca.next.prev = noCabeca.prev;
+		noCabeca.next = head;
+		noCabeca.prev = null;
+		head.prev = noCabeca;
+		head = noCabeca;
+    }
+    
     // deve retornar uma string representando a lista. 
     public String toString() {
         if (isEmpty()) return "";
@@ -214,6 +335,15 @@ public class LinkedList {
     
     public int size() {
         return tamanho;
+    }
+    
+    public Node getNo(int index) {
+    	Node nodeAux = head;
+    	for (int i = 0; i < index; i++) {
+    		nodeAux = nodeAux.next;
+    	}
+    	
+    	return nodeAux;
     }
 }
 
