@@ -237,6 +237,10 @@ public class LinkedList {
     	Node b0 = n2.prev;
     	Node b1 = n2.next;
     	
+    	if (a1 == n2 || b1 == n1) {
+    		
+    	}
+    	
     	if (a0 != null) {
     		a0.next = n2;
     	} else {
@@ -261,10 +265,6 @@ public class LinkedList {
     		tail = n1;
     	}
     	
-    	if (a1 == b0 || b1 == a0) {
-    		a1.next = n1;
-    		a1.prev = n2;
-    	}
     	
     	n2.prev = a0;
     	n1.next = b1;

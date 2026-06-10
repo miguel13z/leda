@@ -14,7 +14,7 @@ public class MeusTestes {
         System.out.println(list.toString() + "\n");
         
         Node n1 = list.getNo(1);
-        Node n2 = list.getNo(2);
+        Node n2 = list.getNo(3);
         list.swap(n1, n2);
         
         
