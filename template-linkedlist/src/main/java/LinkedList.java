@@ -75,15 +75,15 @@ public class LinkedList {
     // deve lançar IndexOutOfBoundsException se o índice não for válido.
     public int get(int index) {
     	if (index < 0 || index >= tamanho) throw new IndexOutOfBoundsException("Index inválido.");
-    	Node noAux = head;
-		for (int i = 0; i < index; i++) {
-			noAux = noAux.next;
-		}
-    	
-         return noAux.value;
+    	return get(head, index);
     }
 
-    // deve lançar exceção caso a fila esteja vazia.
+    private int get(Node node, int index) {
+		if (index == 0) return node.value;
+		return get(node.next, index - 1);
+	}
+
+	// deve lançar exceção caso a fila esteja vazia.
     public int removeFirst() {
     	if (tamanho == 0) throw new RuntimeException("A LinkedList está vazia.");
     	
@@ -158,32 +158,35 @@ public class LinkedList {
 
     // retorna a posição da primeira ocorrência do valor passado como parâmetro.
     public int indexOf(int value) {
-    	Node nodeAux = head;
-    	int i = 0;
-    	while (nodeAux != null) {
-    		if (nodeAux.value == value) {
-    			return i;
-    		}
-    		nodeAux = nodeAux.next;
-    		i++;
-    	}
-    	
-        return -1;
+    	return indexOf(head, value);
     }
 
-    public boolean contain(int v) {
-    	Node nodeAux = head;
-    	while (nodeAux != null) {
-    		if (nodeAux.value == v) {
-    			return true;
-    		}
-    		nodeAux = nodeAux.next;
-    	}
-    	
-        return false;
+    private int indexOf(Node node, int value) {
+    	if (node == null) return -tamanho - 1;
+    	if (node.value == value) return 0;
+    	return indexOf(node.next, value) + 1;
+	}
+
+	public boolean contain(int v) {
+    	return contains(head, v);
     }
    
-    // Deve retornar a posição da última ocorrência do elemento passado como parâmetro. 
+    private boolean contains(Node node, int v) {
+		if (node == null) return false;
+		if (node.value == v) return true;
+    	return contains(node.next, v);
+	}
+    
+    public int sum() {
+    	return sum(head);
+    }
+
+	private int sum(Node node) {
+		if (node == null) return 0;
+		return node.value + sum(node.next);
+	}
+
+	// Deve retornar a posição da última ocorrência do elemento passado como parâmetro. 
     public int lastIndexOf(int valor) {
     	Node nodeAux = head;
     	int index = -1;
@@ -323,28 +326,30 @@ public class LinkedList {
     // deve retornar uma string representando a lista. 
     public String toString() {
         if (isEmpty()) return "";
-
-        Node aux = this.head;
-        String out = "";
-        while (aux != null) {
-            out += aux.value + ", ";
-            aux = aux.next;
-        }
+        
+        String out = toString(head);
+        
         return out.substring(0, out.length() - 2);
     }
     
-    public int size() {
+    private String toString(Node node) {
+    	if (node == null) return "";
+		return node.value + ", " + toString(node.next);
+	}
+
+	public int size() {
         return tamanho;
     }
     
     public Node getNo(int index) {
-    	Node nodeAux = head;
-    	for (int i = 0; i < index; i++) {
-    		nodeAux = nodeAux.next;
-    	}
-    	
-    	return nodeAux;
+    	if (index < 0 || index >= tamanho) throw new IndexOutOfBoundsException("Index inválido.");
+    	return getNo(head, index);
     }
+
+	private Node getNo(Node node, int index) {
+		if (index == 0) return node;
+		return getNo(node.next, index - 1);
+	}
 }
 
 class Node {

@@ -10,19 +10,10 @@ public class MeusTestes {
         list.addLast(3);
         list.addLast(4);
         list.addLast(5);
+        list.addLast(10);
 		
         System.out.println(list.toString() + "\n");
         
-        Node n1 = list.getNo(1);
-        Node n2 = list.getNo(3);
-        list.swap(n1, n2);
-        
-        
-        System.out.println(list.toString() + "\n");
-        
-        list.addLast(20);
-        
-        System.out.println(list.toString() + "\n");
 	}
 
 }
