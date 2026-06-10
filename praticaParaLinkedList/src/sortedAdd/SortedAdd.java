@@ -1,30 +1,32 @@
-package trimLinkedList;
+package sortedAdd;
 
 import java.util.Scanner;
 
-public class TrimLinkedList {
-
+public class SortedAdd {
+	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		String[] linha = sc.nextLine().split(" ");
-		int k = Integer.parseInt(sc.nextLine());
+		int value = Integer.parseInt(sc.nextLine());
 		sc.close();
 		int[] v = converteInt(linha);
 		
-		System.out.println(trimLinkedList(v, k));
+		System.out.println(sortedAdd(v, value));
 	}
 
-	private static String trimLinkedList(int[] v, int k) {
+	private static String sortedAdd(int[] v, int value) {
 		LinkedList list = new LinkedList();
 		for (int num : v) {
 			list.addLast(num);
 		}
-		list.trim(k);
+		
+		list.sortedAdd(value);
 		
 		return list.toString();
 	}
 
 	private static int[] converteInt(String[] linha) {
+		if (linha.length == 1 && linha[0].isBlank()) return new int[0];
 		int[] array = new int[linha.length];
 		for (int i = 0; i < linha.length; i++) {
 			array[i] = Integer.parseInt(linha[i]);
@@ -32,70 +34,69 @@ public class TrimLinkedList {
 		
 		return array;
 	}
-
+	
 }
 
 class LinkedList {
+	private int tamanho;
 	private Node head;
 	private Node tail;
-	private int tamanho;
 	
 	public LinkedList() {
+		this.tamanho = 0;
 		this.head = null;
 		this.tail = null;
-		this.tamanho = 0;
 	}
 	
-	public void trim(int k) {
-		if (k * 2 >= tamanho) {
-			head = null;
-			tail = null;
-			tamanho = 0;
+	public void sortedAdd(int value) {
+		Node newNode = new Node(value);
+		if (isEmpty()) {
+			head = newNode;
+			tail = newNode;
+			tamanho++;
 			return;
-		} 
-		
-		for (int i = 0; i < k; i++) {
-			head = head.next;
-			head.prev = null;
-			tail = tail.prev;
-			tail.next = null;
-			tamanho -= 2;
 		}
 		
+		Node noAux = head;
+		while (noAux != null && noAux.value != value) {
+			noAux = noAux.next;
+		}
+		
+		System.out.println(noAux.value);
+		
+		tamanho++;
 	}
 
-	public void addLast(int valor) {
-		Node newNode = new Node(valor);
+	public void addLast(int value) {
+		Node newNode = new Node(value);
 		if (isEmpty()) {
 			head = newNode;
 			tail = newNode;
 		} else {
-			tail.next = newNode;
 			newNode.prev = tail;
+			tail.next = newNode;
 			tail = newNode;
 		}
 		
 		tamanho++;
 	}
-	
+
 	public boolean isEmpty() {
 		return tamanho == 0;
 	}
 	
 	@Override
 	public String toString() {
-		if (isEmpty()) return "vazia";
-		
+		if (isEmpty()) return "";
 		String out = "";
-		Node auxNode = head;
-		while (auxNode != null) {
-			out += auxNode.value + " ";
-			auxNode = auxNode.next;
+		Node noAux = head;
+		while (noAux != null) {
+			out += noAux.value + ", ";
+			noAux = noAux.next;
 		}
-				
-		return out.substring(0, out.length() - 1);
+		
+		return out.substring(0, out.length() - 2);
 	}
-
 }
 
 class Node {

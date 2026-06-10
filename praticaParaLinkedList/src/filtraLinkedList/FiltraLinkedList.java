@@ -1,25 +1,26 @@
-package trimLinkedList;
+package filtraLinkedList;
 
 import java.util.Scanner;
 
-public class TrimLinkedList {
+public class FiltraLinkedList {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		String[] linha = sc.nextLine().split(" ");
-		int k = Integer.parseInt(sc.nextLine());
+		int alvo = Integer.parseInt(sc.nextLine());
 		sc.close();
 		int[] v = converteInt(linha);
 		
-		System.out.println(trimLinkedList(v, k));
+		System.out.println(filtraLinkedList(v, alvo));
 	}
 
-	private static String trimLinkedList(int[] v, int k) {
+	private static String filtraLinkedList(int[] v, int alvo) {
 		LinkedList list = new LinkedList();
 		for (int num : v) {
 			list.addLast(num);
 		}
-		list.trim(k);
+		
+		list.filtra(alvo);
 		
 		return list.toString();
 	}
@@ -46,26 +47,40 @@ class LinkedList {
 		this.tamanho = 0;
 	}
 	
-	public void trim(int k) {
-		if (k * 2 >= tamanho) {
-			head = null;
-			tail = null;
-			tamanho = 0;
-			return;
-		} 
-		
-		for (int i = 0; i < k; i++) {
-			head = head.next;
-			head.prev = null;
-			tail = tail.prev;
-			tail.next = null;
-			tamanho -= 2;
+	public void filtra(int value) {
+		Node nodeAux = head;
+		while (nodeAux != null) {
+			if (nodeAux.value == value) {
+				remove(nodeAux);
+			}
+			nodeAux = nodeAux.next;
 		}
-		
 	}
 
-	public void addLast(int valor) {
-		Node newNode = new Node(valor);
+	private void remove(Node nodeAux) {
+		if (nodeAux == head) {
+			head = nodeAux.next;
+			if (head == null) {
+				head = null;
+				tail = null;
+				tamanho = 0;
+			} else {
+				head.prev = null;
+				tamanho--;
+			}
+		} else if (nodeAux == tail) {
+			tail = nodeAux.prev;
+			tail.next = null;
+			tamanho--;
+		} else {
+			nodeAux.prev.next = nodeAux.next;
+			nodeAux.next.prev = nodeAux.prev;
+			tamanho--;
+		}
+	}
+
+	public void addLast(int value) {
+		Node newNode = new Node(value);
 		if (isEmpty()) {
 			head = newNode;
 			tail = newNode;
@@ -74,28 +89,24 @@ class LinkedList {
 			newNode.prev = tail;
 			tail = newNode;
 		}
-		
 		tamanho++;
 	}
 	
-	public boolean isEmpty() {
-		return tamanho == 0;
-	}
-	
-	@Override
 	public String toString() {
 		if (isEmpty()) return "vazia";
-		
 		String out = "";
 		Node auxNode = head;
 		while (auxNode != null) {
 			out += auxNode.value + " ";
 			auxNode = auxNode.next;
 		}
-				
+		
 		return out.substring(0, out.length() - 1);
 	}
-
+	
+	public boolean isEmpty() {
+		return tamanho == 0;
+	}
 }
 
 class Node {
