@@ -57,6 +57,21 @@ class LinkedList {
 			return;
 		}
 		
+		if (newNode.value < head.value) {
+			newNode.next = head;
+			head.prev = newNode;
+			tamanho++;
+			head = newNode;
+			return;
+		}
+		
+		Node noAux = head.next;
+		while (noAux != null) {
+			if (newNode.value <= noAux.value) {
+				
+			}
+		}
+		
 		Node noAux = head;
 		while (noAux != null && noAux.value != value) {
 			noAux = noAux.next;
