@@ -17,7 +17,7 @@ public class SortedAdd {
 	private static String sortedAdd(int[] v, int value) {
 		LinkedList list = new LinkedList();
 		for (int num : v) {
-			list.addLast(num);
+			list.sortedAdd(num);
 		}
 		
 		list.sortedAdd(value);
@@ -51,34 +51,39 @@ class LinkedList {
 	public void sortedAdd(int value) {
 		Node newNode = new Node(value);
 		if (isEmpty()) {
-			head = newNode;
-			tail = newNode;
-			tamanho++;
+			addLast(newNode.value);
 			return;
 		}
 		
 		if (newNode.value < head.value) {
-			newNode.next = head;
-			head.prev = newNode;
-			tamanho++;
-			head = newNode;
+			addFirstNode(newNode);
 			return;
 		}
 		
 		Node noAux = head.next;
 		while (noAux != null) {
 			if (newNode.value <= noAux.value) {
-				
+				insereNo(newNode, noAux);
+				return;
 			}
-		}
-		
-		Node noAux = head;
-		while (noAux != null && noAux.value != value) {
 			noAux = noAux.next;
 		}
 		
-		System.out.println(noAux.value);
-		
+		addLast(newNode.value);
+	}
+
+	private void addFirstNode(Node newNode) {
+		newNode.next = head;
+		head.prev = newNode;
+		tamanho++;
+		head = newNode;
+	}
+
+	private void insereNo(Node newNode, Node noAux) {
+		newNode.next = noAux;
+		newNode.prev = noAux.prev;
+		newNode.prev.next = newNode;
+		noAux.prev = newNode;
 		tamanho++;
 	}
 
