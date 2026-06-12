@@ -21,8 +21,16 @@ public class Swap {
 			list.addLast(num);
 		}
 		
-		Node node1 = list.getNode(indexNode1);
-		Node node2 = list.getNode(indexNode2);
+		Node node1;
+		Node node2;
+		if(indexNode1 > indexNode2) {
+			node1 = list.getNode(indexNode2);
+			node2 = list.getNode(indexNode1);
+		} else {
+			node1 = list.getNode(indexNode1);
+			node2 = list.getNode(indexNode2);
+		}
+		
 		list.swap(node1, node2);
 		
 		return list.toString();
@@ -53,14 +61,9 @@ class LinkedList {
 	
 	public void swap(Node node1, Node node2) {
 		if (tamanho == 0) return;
-		//nodes estão adjacentes
-		if (node1.next == node2 || node2.next == node1) {
-			if (node2.next == node1) {
-				Node auxNode = node1;
-				node1 = node2;
-				node2 = auxNode;
-			}
-			
+		if (node1 == node2) return;
+		
+		if (node1.next == node2) {
 			Node nodeAnterior = node1.prev;
 			Node nodeSeguinte = node2.next;
 			if (node1.prev == null) {
@@ -81,28 +84,63 @@ class LinkedList {
 			
 			node1.prev = node2;
 			node2.next = node1;
-		} else {
-			if (node1.next != node2.prev) {
-				Node node1Anterior = node1.prev;
-				Node node1Seguinte = node1.next;
-				Node node2Anterior = node2.prev;
-				Node node2Seguinte = node2.next;
-				
-				node1Anterior.next = node2;
-				node2Anterior.next = node1;
-				
-				node2Seguinte.prev = node1;
-				node1Seguinte.prev = node2;
-				
-				node1.next = node2Seguinte;
-				node1.prev = node2Anterior;
-				
-				node2.next = node1Seguinte;
-				node2.prev = node1Anterior;
-			}
-			
-			
+			return;
 		}
+		
+		Node node1Anterior = node1.prev;
+		Node node1Seguinte = node1.next;
+		Node node2Anterior = node2.prev;
+		Node node2Seguinte = node2.next;
+		
+		if (node1Anterior == null) {
+			head = node2;
+			node2.prev = null;
+		} else {
+			node1Anterior.next = node2;
+			node2.prev = node1Anterior;
+		}
+		
+		if (node2Seguinte == null) {
+			tail = node1;
+			node1.next = null;
+		} else {
+			node2Seguinte.prev = node1;
+			node1.next = node2Seguinte;
+		}
+		node2Anterior.next = node1;
+		node1Seguinte.prev = node2;
+		node1.prev = node2Anterior;
+		node2.next = node1Seguinte;
+		
+		/**
+		 * 
+		Node nodeEsq = node1.prev;
+		Node nodeMeio = node1.next;
+		Node nodeDir = node2.next;
+		
+		if (nodeEsq == null) {
+			head = node2;
+			node2.prev = null;
+		} else {
+			nodeEsq.next = node2;
+			node2.prev = nodeEsq;
+		}
+		
+		if (nodeDir == null) {
+			tail = node1;
+			node1.next = null;
+		} else {
+			node1.next = nodeDir;
+			nodeDir.prev = node1;
+		}
+		
+		node2.next = nodeMeio;
+		nodeMeio.next = node1;
+		node1.prev = nodeMeio;
+		nodeMeio.prev = node2;
+		 * 
+		 */
+		
 	}
 
 	public Node getNode(int indexNode) {
