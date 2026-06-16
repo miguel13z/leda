@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import util.Aluno;
 
@@ -25,7 +24,8 @@ public class TabelaHashEncadeada {
     /**
      * Cria uma nova tabela com a capacidade default 20.
      */
-    public TabelaHashEncadeada() {
+    @SuppressWarnings("unchecked")
+	public TabelaHashEncadeada() {
         this.tabela = new ArrayList[CAPACIDADE_DEFAULT];
     }
     
@@ -33,7 +33,8 @@ public class TabelaHashEncadeada {
      * Cria uma nova tabela com a capacidade passada como parâmetro.
      * @param capacidade O número de posições da tabela.
      */
-    public TabelaHashEncadeada(int capacidade) {
+    @SuppressWarnings("unchecked")
+	public TabelaHashEncadeada(int capacidade) {
         this.tabela = new ArrayList[capacidade];
     }
     
@@ -44,8 +45,7 @@ public class TabelaHashEncadeada {
      * @return O hash calculado tendo como base a chave e o tamanho da tabela.
      */
     private int hash(Integer chave) {
-        //TODO implementar
-        return 0;
+        return chave % tabela.length;
     }
     
     /**
@@ -54,7 +54,24 @@ public class TabelaHashEncadeada {
      * @param valor o objeto Aluno a ser adicionado na tabela.
      */
     public void put(Integer chave, Aluno valor) {
-        // TODO implementar
+    	int hash = hash(chave);
+    	if (tabela[hash] == null) {
+    		ArrayList<Aluno> novaLista = new ArrayList<>();
+    		novaLista.add(valor);
+    		tabela[hash] = novaLista;
+    		return;
+    	}
+    	
+		ArrayList<Aluno> lista = tabela[hash];
+		for (int i = 0; i < lista.size(); i++) {
+			int matricula = lista.get(i).getMatricula();
+			if (matricula == chave) {
+				lista.set(i, valor);
+				return;
+			}
+		}
+		
+		lista.add(valor);
     }
 
     /**
@@ -65,18 +82,49 @@ public class TabelaHashEncadeada {
      * parâmetro.
      */
     public Aluno get(Integer chave) {
-        // TODO: implementar
+    	int hash = hash(chave);
+    	if (tabela[hash] == null) return null;
+    	
+    	ArrayList<Aluno> lista = tabela[hash];
+    	for (int i = 0; i < lista.size(); i++) {
+    		Aluno aluno = lista.get(i);
+    		if (aluno.getMatricula() == chave) return aluno;
+    	}
+    	
         return null;
     }  
 
      public boolean containsKey(Integer chave) {
-        //TODO implementar
-        return false;
+    	 int hash = hash(chave);
+    	 if (tabela[hash] == null) return false;
+    	 
+    	 ArrayList<Aluno> lista = tabela[hash];
+    	 for (int i = 0; i < lista.size(); i++) {
+    		 int matricula = lista.get(i).getMatricula();
+    		 if (matricula == chave) return true;
+    	 }
+    	
+    	 return false;
     }
 
     public boolean containsValue(Aluno aluno) {
-        //TODO implementar
+    	for (int i = 0; i < tabela.length; i++) {
+    		ArrayList<Aluno> lista = tabela[i];
+    		if (contemAluno(aluno, lista)) return true;
+    	}
+    	
         return false;
+    }
+    
+    private boolean contemAluno(Aluno alunoAlvo, ArrayList<Aluno> lista) {
+    	if (lista == null) return false;
+    	
+    	for (int i = 0; i < lista.size(); i++) {
+    		Aluno aluno = lista.get(i);
+    		if (aluno.equals(alunoAlvo)) return true;
+    	}
+    	
+    	return false;
     }
 
     /**
@@ -86,21 +134,19 @@ public class TabelaHashEncadeada {
      * passada como parâmetro. 
      */
     public Aluno remove(int chave) {
-        int hash = hash(chave);
-        ArrayList<Aluno> alunos = this.tabela[hash];
-        
-        Iterator<Aluno> it = alunos.iterator();
-        Aluno atual = null;
-        
-        while (it.hasNext()) {
-                atual = it.next();
-                if (atual.getMatricula().equals(chave)) {
-                    it.remove();
-                    return atual;
-                }
-        }
-        
-        return atual;
+    	int hash = hash(chave);
+    	if (tabela[hash] == null) return null;
+    	
+    	ArrayList<Aluno> lista = tabela[hash];
+    	for (int i = 0; i < lista.size(); i++) {
+    		Aluno aluno = lista.get(i);
+    		if (aluno.getMatricula() == chave) {
+    			lista.remove(i);
+    			return aluno;
+    		}
+    	}
+       
+    	return null;
     }  
 
 }
