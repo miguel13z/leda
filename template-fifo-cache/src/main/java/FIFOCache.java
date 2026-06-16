@@ -1,30 +1,64 @@
 public class FIFOCache {
+	
+	private int head;
+	private int tail;
+	private String[] fila;
+	private int size;
 
     // sua fila deve seguir a abordagem circular que vimos em sala de aula.
     // isso implica em dizer quer adições e remoções são O(1).
     public FIFOCache(int capacidade) {
-        // TODO
+    	this.head = -1;
+    	this.tail = -1;
+    	this.fila = new String[capacidade];
+    	this.size = 0;
     }
 
     public boolean isEmpty() {
-        // TODO
-        return false;
+        return size == 0;
     }
 
     public boolean isFull() {
-        // TODO
-        return false;
+        return size == fila.length;
     }
 
     // deve sobrescerver o mais antigo caso a fila esteja cheia.
     public void addLast(String chave) {
-        // TODO
+    	if (isEmpty()) {
+    		head = 0;
+    		tail = 0;
+    		fila[0] = chave;
+    		size++;
+    		return;
+    	}
+    	
+    	if (!isFull()) {
+    		tail = (tail + 1) % fila.length;
+    		fila[tail] = chave;
+    		size++;
+    		return;
+    	}
+    	
+    	if (isFull()) {
+    		removeFirst();
+    		
+    	}
     }
 
     // deve lançar exceção caso a fila esteja vazia.
     public String removeFirst() {
-        // TODO 
-        return 0;
+        if (isEmpty()) throw new RuntimeException("A fila está vazia.");
+        if (head == tail) {
+        	head = -1;
+        	tail = -1;
+        	size = 0;
+        	return fila[head];
+        }
+        
+        String elemento = fila[head];
+        head = (head + 1) % fila.length;
+        size--;
+        return elemento;
     }
 
     // deve lançar exceção caso a fila esteja vazia. apenas retorna o primeiro da fila, sem
@@ -45,7 +79,6 @@ public class FIFOCache {
     }
     
     public int size() {
-        // TODO
-        return 0;
+        return size;
     }
 }
