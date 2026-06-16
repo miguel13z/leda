@@ -41,7 +41,7 @@ public class FIFOCache {
     	
     	if (isFull()) {
     		removeFirst();
-    		
+    		addLast(chave);
     	}
     }
 
@@ -49,10 +49,11 @@ public class FIFOCache {
     public String removeFirst() {
         if (isEmpty()) throw new RuntimeException("A fila está vazia.");
         if (head == tail) {
+        	String elemento = fila[head];
         	head = -1;
         	tail = -1;
         	size = 0;
-        	return fila[head];
+        	return elemento;
         }
         
         String elemento = fila[head];
@@ -64,18 +65,27 @@ public class FIFOCache {
     // deve lançar exceção caso a fila esteja vazia. apenas retorna o primeiro da fila, sem
     // remover;
     public String getFirst() {
-        return "";
+    	if (isEmpty()) throw new RuntimeException("A fila está vazia.");
+        return fila[head];
     }
 
     // deve lançar exceção caso a fila esteja vazia. apenas retorna o último da fila, sem
     // remover;
     public String getLast() {
-        return "";
+    	if (isEmpty()) throw new RuntimeException("A fila está vazia.");
+        return fila[tail];
     }
 
     // deve retornar uma string representando a fila. 
     public String toString() {
-        return "";
+    	if (isEmpty()) return "";
+    	String out = "";
+    	for (int i = 0; i < size; i++) {
+    		int indexFila = (head + i) % fila.length;
+    		out += fila[indexFila] + ", ";
+    	}
+    	
+        return out.substring(0, out.length() - 2);
     }
     
     public int size() {

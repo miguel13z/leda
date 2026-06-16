@@ -32,6 +32,7 @@ public class FIFOCacheAsserts {
         // com a entrada de a, b saiu e c é o próximo a sair
         assert fifocache.getNextEviction().equals("c");
         assert "miss".equals(fifocache.get("b"));
-
+        
+        System.out.println("Todos os testes passaram");
     }
 }
