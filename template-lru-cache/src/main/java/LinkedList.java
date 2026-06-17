@@ -1,4 +1,3 @@
-package linkedlist;
 import java.util.NoSuchElementException;
 
 public class LinkedList {
@@ -17,7 +16,7 @@ public class LinkedList {
         return this.head == null;
     }
 
-    public void addFirst(int valor) {
+    public void addFirst(String valor) {
         Node newNode = new Node(valor);
         
         if (isEmpty()) {
@@ -32,7 +31,7 @@ public class LinkedList {
         size += 1;
     }
 
-    public void addLast(int valor) {
+    public void addLast(String valor) {
         Node newNode = new Node(valor);
         
         if(isEmpty()) {
@@ -47,7 +46,7 @@ public class LinkedList {
     }
 
     // adiciona um valor na posição passada como parâmetro
-    public void add(int index, int valor) {
+    public void add(int index, String valor) {
         if (index < 0 || index > size)
             throw new IndexOutOfBoundsException();
         
@@ -74,19 +73,19 @@ public class LinkedList {
         }
     }
 
-    public int getFirst() {
+    public String getFirst() {
         if (isEmpty()) throw new NoSuchElementException();
         return this.head.value;
     }
 
-    public int getLast() {
+    public String getLast() {
         if (isEmpty()) throw new NoSuchElementException();
         return this.tail.value;
     }
 
     // retorna o elemento na posição  passada como parâmetro
     // deve lançar IndexOutOfBoundsException se o índice não for válido.
-    public int get(int index) {
+    public String get(int index) {
          if (index < 0 || index >= size)
             throw new IndexOutOfBoundsException();
         
@@ -99,10 +98,10 @@ public class LinkedList {
     }
 
     // deve lançar exceção caso a fila esteja vazia.
-    public int removeFirst() {
+    public String removeFirst() {
         if (isEmpty()) throw new NoSuchElementException();
         
-        int v = this.head.value;
+        String v = this.head.value;
         
         if (this.head.next == null) {
             this.head = null;
@@ -117,10 +116,10 @@ public class LinkedList {
     }
 
     // deve lançar exceção caso a fila esteja vazia.
-    public int removeLast() {
+    public String removeLast() {
         if (isEmpty()) throw new NoSuchElementException();
         
-        int v = this.tail.value;
+        String v = this.tail.value;
         
         if (this.head.next == null) {
             this.head = null;
@@ -136,7 +135,7 @@ public class LinkedList {
 
     // remove o valor no índice passado como parâmetro. retorna o valor removido.
     // lançar exceção se o índice não for válido.
-    public int remove(int index) {
+    public String remove(int index) {
          if (index < 0 || index >= size)
             throw new IndexOutOfBoundsException();
         
@@ -155,10 +154,10 @@ public class LinkedList {
 
     // remove a primeira ocorrência do elemento cujo valor foi passado como parâmetro.
     // se não encontrar, não faça nada. true se remover, false se não remover.
-    public boolean removeByValue(int value) {
+    public boolean removeByValue(String value) {
         Node aux = this.head;
         for (int i = 0; i < this.size; i++) {
-            if (aux.value == value) {
+            if (aux.value.equals(value)) {
                 if (i == 0) removeFirst();
                 else if (i == size - 1) removeLast();
                 else {
@@ -176,11 +175,11 @@ public class LinkedList {
     }
 
     // retorna a posição da primeira ocorrência do valor passado como parâmetro.
-    public int indexOf(int value) {
+    public int indexOf(String value) {
         Node aux = this.head;
         int index = 0;
         while (aux != null) { 
-            if(aux.value == value)
+            if(aux.value.equals(value))
                 return index;
             aux = aux.next;
             index += 1;
@@ -189,12 +188,12 @@ public class LinkedList {
         return -1;
     }
 
-    public boolean contain(int v) {
+    public boolean contain(String v) {
         return indexOf(v) != -1;
     }
    
     // Deve retornar a posição da última ocorrência do elemento passado como parâmetro. 
-    public int lastIndexOf(int valor) {
+    public int lastIndexOf(String valor) {
         if (isEmpty()) return -1;
         
         int last = -1;
@@ -202,7 +201,7 @@ public class LinkedList {
         int i = -1;
         while (aux != null) {
             i += 1;
-            if (aux.value == valor)
+            if (aux.value.equals(valor))
                 last = i;
             aux = aux.next;
         }
@@ -229,17 +228,40 @@ public class LinkedList {
 
     // deve ser O(1)
     public void moveToTail(Node node) {
-        // TODO
+    	if (size == 0) return;
+    	if (node == tail) return;
+    	if (node == head) {
+    		head = head.next;
+    		head.prev = null;
+    	} else {
+    		node.next.prev = node.prev;
+        	node.prev.next = node.next;
+    	}
+    	
+    	tail.next = node;
+    	node.prev = tail;
+    	node.next = null;
+    	tail = node;
+    }
+    
+    public Node getNode(String valor) {
+    	Node aux = head;
+    	while (aux != null) { 
+    		if(aux.value.equals(valor)) return aux;
+            aux = aux.next;
+        }
+    	
+    	return null;
     }
 }
 
 class Node {
 
-    int value;
+    String value;
     Node prev;
     Node next;
 
-    Node(int v) {
+    Node(String v) {
         this.value = v;
     }
 

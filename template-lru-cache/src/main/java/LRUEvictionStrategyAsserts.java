@@ -59,5 +59,7 @@ public class LRUEvictionStrategyAsserts {
 
         assert lrucache.size() == 4;
         assert lrucache.getNextEviction().equals("x");    
+        
+        System.out.println("Todos os testes passaram!");
     }
 }

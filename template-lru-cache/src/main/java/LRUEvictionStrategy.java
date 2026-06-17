@@ -1,7 +1,11 @@
 public class LRUEvictionStrategy {
 
+	private LRUCache list;
+	
     // deve ter uma linkedlist como atributo
-    public LRUEvictionStrategy(int capacidade) {}
+    public LRUEvictionStrategy(int capacidade) {
+    	list = new LRUCache(capacidade);
+    }
 
     /*
     * retorna "hit" se estiver no cache.
@@ -10,7 +14,9 @@ public class LRUEvictionStrategy {
     * objeto com a chave passada como parâmetro.
     **/
     public String get(String chave) {
-        return null;
+    	if (list.get(chave) != null) return "hit";
+    	list.addLast(chave);
+        return "miss";
     }
 
     /*
@@ -19,12 +25,13 @@ public class LRUEvictionStrategy {
     * esse método não altera o estado da fila.
     **/
     public String getNextEviction() {
-        return null;
+    	if (!list.isFull()) return null;
+    	return list.getFirst();
     }    
 
     //retorna a quantidade de elementos no cache.
     public int size() {
-        return 0;
+        return list.size();
     }
 
 }
