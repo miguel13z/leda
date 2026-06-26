@@ -45,6 +45,7 @@ class TabelaHash {
 	private List<Integer> chaves;
 	private List<String> valores;
 	
+	@SuppressWarnings("unchecked")
 	public TabelaHash(int tamanho) {
 		this.tabela = new List[tamanho];
 		this.chaves = new ArrayList<>();

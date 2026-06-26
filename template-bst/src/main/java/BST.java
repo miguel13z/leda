@@ -10,45 +10,42 @@ public class BST {
     }
     
     /**
-     * Implementação iterativa da adição de um elemento em uma árvore binária de pequisa.
+     * Implementação iterativa da adição de um elemento em uma árvore binária de pequisa. 
      * @param element o valor a ser adicionado na árvore.
      */
     public void add(int element) {
-        this.size += 1;
-        if (isEmpty())
-            this.root = new Node(element);
-        else {
-            
-            Node aux = this.root;
-            
-            while (aux != null) {
-                
-                if (element < aux.value) {
-                    if (aux.left == null) { 
-                        Node newNode = new Node(element);
-                        aux.left = newNode;
-                        newNode.parent = aux;
-                        return;
-                    }
-                    
-                    aux = aux.left;
-                } else {
-                    if (aux.right == null) { 
-                        Node newNode = new Node(element);
-                        aux.right = newNode;
-                        newNode.parent = aux;
-                        return;
-                    }
-                    
-                    aux = aux.right;
-                }
-            }
-        }
-        
+    	size++;
+    	if (isEmpty()) {
+    		root = new Node(element);
+    	}
+    	else {
+    		add(root, element);
+    	}
     }
     
     
-    /**
+    private void add(Node current, int element) {
+    	if (element > current.value) {
+    		if (current.right == null) {
+    			Node newNode = new Node(element);
+        		newNode.parent = current;
+        		current.right = newNode;
+        		return;
+    		}
+    		add(current.right, element);
+    	}
+    	if (element < current.value) {
+    		if (current.left == null) {
+    			Node newNode = new Node(element);
+        		newNode.parent = current;
+        		current.left = newNode;
+        		return;
+    		}
+    		add(current.left, element);
+    	}
+	}
+
+	/**
      * Busca o nó cujo valor é igual ao passado como parâmetro. Essa é a implementação 
      * iterativa clássica da busca binária em uma árvore binária de pesquisa.
      * @param element O elemento a ser procurado.
@@ -56,23 +53,38 @@ public class BST {
      * o elemento não esteja presente na árvore.
      */
     public Node search(int element) {
+    	if (isEmpty()) return null;
+    	Node aux = root;
+    	while (aux != null) {
+    		if (element == aux.value) return aux;
+    		if (element > aux.value) aux = aux.right;
+    		else aux = aux.left;
+    	}
+    	
         return null;
     }
-    
     
     /**
      * Retorna a altura da árvore.
      */
     public int height() {
-        return -1;
+        return height(root);
     }
 
 
-    public boolean equals(BST outra) {
-        return false;
+    private int height(Node current) {
+    	if (current == null) return -1;
+		return Math.max(height(current.left), height(current.right)) + 1;
+	}
+
+	public boolean equals(BST outra) {
+		if(root == null && outra.root == null) {
+			return true;
+		}
+		return equals(root, outra.root);
     }
 
-    /**
+	/**
     * Retorna o número de folhas da árvore.
     */
     public int contaFolhas() {
