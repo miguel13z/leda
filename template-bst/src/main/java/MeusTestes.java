@@ -6,9 +6,7 @@ public class MeusTestes {
 		BST arvore2 = new BST();
 		arvore1.add(10);
 		
-		
-		
-		System.out.println(arvore1.equals(arvore2));
+		System.out.println(arvore1.contaFolhas());
 	}
 
 }
