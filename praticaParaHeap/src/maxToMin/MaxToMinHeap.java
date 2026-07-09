@@ -2,7 +2,7 @@ package maxToMin;
 
 import java.util.*;
 
-public class MaxToMinHeap { // Nome padrão para bater com os scripts
+public class MaxToMinHeap {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
